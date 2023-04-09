@@ -1,0 +1,7 @@
+export { default as Login } from './Login'
+export { default as Cadastrar } from './Cadastrar'
+export { default as Home } from './Home'
+export { default as Camera } from './Camera'
+export { default as File } from './File'
+export { default as Sair } from './Sair'
+export { default as Menu } from './Home'
