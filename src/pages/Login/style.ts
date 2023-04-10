@@ -27,7 +27,7 @@ export const Form = styled.KeyboardAvoidingView`
 `
 
 export const Card = styled(View)`
-  background-color: #390975;
+  background-color: #421f6e;
   border-radius: 10px;
   height: 600px;
   width: 300px;

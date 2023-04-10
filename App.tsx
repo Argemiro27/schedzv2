@@ -7,7 +7,7 @@ import colors from "./src/styles/colors";
 export default function App() {
   return (
     <AuthProvider>
-      <StatusBar backgroundColor={colors.purple} />
+      <StatusBar backgroundColor={colors.bgDashboard} />
       <Routes />
     </AuthProvider>
   );

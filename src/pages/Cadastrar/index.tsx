@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import { useNavigation } from "@react-navigation/core";
 import { Button, ButtonText, Header, Loading } from "../../components";
 
-import { Form, Container, FormRow, TextInput, Title, Card } from "./style";
+import { Form, Container, FormRow, TextInput, Title, Card } from "../Login/style";
 import { LoginTypes } from "../../types/ScreenStack.types";
 import { Ionicons } from "@expo/vector-icons";
 import { IUser, IRegister } from "../../interfaces/User.interface";

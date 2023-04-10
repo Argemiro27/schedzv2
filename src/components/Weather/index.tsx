@@ -14,7 +14,7 @@ const WeatherContainer = styled.View`
 `;
 
 const WeatherTitle = styled.Text`
-    font-family: NovaFlat_400Regular;
+  font-family: NovaFlat_400Regular;
   font-size: 20px;
   text-align: center;
   color: #84699b;
@@ -39,8 +39,7 @@ const WeatherCard = styled.View`
   justify-content: center;
   margin-bottom: 5px;
   border-radius: 10px;
-  background-color: ${colors.black};
-  border: 2px solid ${colors.deeppurple};
+  background-color: ${colors.purple};
   margin: 10px;
 `;
 

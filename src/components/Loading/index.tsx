@@ -1,37 +1,46 @@
 import React from "react";
 import LottieView from "lottie-react-native";
 import loadingLottie from "../../lotties/loading.json";
-import { StyleSheet, View, ImageBackground } from "react-native";
+import styled from "styled-components/native";
+import { ImageBackground } from "react-native";
+import colors from "../../styles/colors";
 
 const image = require('../../../assets/bgLogin.png');
 
+const LoadingWrapper = styled(ImageBackground)`
+  flex: 1;
+  justify-content: center;
+`;
+
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.purple};
+  border-radius: 200px;
+  padding: 50px;
+  max-width: 80%;
+  max-height: 50%;
+  align-self: center;
+  border: 2px solid #351550;
+`;
+
+const LoadingAnimation = styled(LottieView)`
+  background-color: transparent;
+  width: 200px;
+  height: 200px;
+`;
+
 export default function Loading() {
   return (
-    <ImageBackground source={image} style={styles.image}>
-      <View style={styles.container}>
-        <LottieView
+    <LoadingWrapper source={image}>
+      <Container>
+        <LoadingAnimation
           source={loadingLottie}
           autoPlay
           loop
-          style={styles.loading}
         />
-      </View>
-    </ImageBackground>
+      </Container>
+    </LoadingWrapper>
   );
 }
-
-const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loading: {
-    backgroundColor: "transparent",
-  },
-});

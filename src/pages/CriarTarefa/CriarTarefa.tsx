@@ -7,25 +7,25 @@ import { Card } from '../Login/style';
 
 
 const CriarTarefa: React.FC = () => {
-  const [taskName, setTaskName] = useState<string>('');
-  const [taskDescription, setTaskDescription] = useState<string>('');
+  const [tarefaName, setTarefaName] = useState<string>('');
+  const [tarefaDescription, setTarefaDescription] = useState<string>('');
   const [attachment, setAttachment] = useState<string>('');
 
-  const saveTask = async () => {
+  const saveTarefa = async () => {
     try {
-      const existingTasks = await AsyncStorage.getItem('@tasks');
-      const tasks = existingTasks ? JSON.parse(existingTasks) : [];
-      const newTask = {
+      const existingTarefas = await AsyncStorage.getItem('@tarefas');
+      const tarefas = existingTarefas ? JSON.parse(existingTarefas) : [];
+      const newTarefa = {
         id: Math.random().toString(36).substring(7),
-        name: taskName,
-        description: taskDescription,
+        name: tarefaName,
+        description: tarefaDescription,
         attachment: attachment,
       };
-      tasks.push(newTask);
-      await AsyncStorage.setItem('@tasks', JSON.stringify(tasks));
+      tarefas.push(newTarefa);
+      await AsyncStorage.setItem('@tarefas', JSON.stringify(tarefas));
       Alert.alert('Sucesso', 'Tarefa criada com sucesso');
-      setTaskName('');
-      setTaskDescription('');
+      setTarefaName('');
+      setTarefaDescription('');
       setAttachment('');
     } catch (error) {
       Alert.alert('Erro', 'Erro ao criar tarefa');
@@ -39,22 +39,22 @@ const CriarTarefa: React.FC = () => {
   return (
     <Container>
       <Card>
-      <Title>Criar Tarefa</Title>
+      <Title>CRIAR TAREFA</Title>
       <Input
         placeholder="Nome da Tarefa"
-        value={taskName}
-        onChangeText={(value) => setTaskName(value)}
+        value={tarefaName}
+        onChangeText={(value) => setTarefaName(value)}
         selectionColor="#493861"
         placeholderTextColor="#383838"
       />
       <Input
         placeholder="Descrição"
-        value={taskDescription}
-        onChangeText={(value) => setTaskDescription(value)}
+        value={tarefaDescription}
+        onChangeText={(value) => setTarefaDescription(value)}
         selectionColor="#493861"
         placeholderTextColor="#383838"
       />
-      <Button onPress={saveTask}>
+      <Button onPress={saveTarefa}>
         <ButtonText>CRIAR TAREFA</ButtonText>
       </Button>
       </Card>

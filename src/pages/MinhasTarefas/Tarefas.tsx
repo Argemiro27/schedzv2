@@ -1,59 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
-import styled from "styled-components/native";
+import { FlatList, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import { Container } from "../Home";
-import colors from "../../styles/colors";
 import { MaterialIcons } from "@expo/vector-icons";
+import { TarefaCard, TarefaName, TarefaDescription, AttachmentText, DeleteButton, DeleteButtonText } from './style';
 
-const TaskCard = styled.View`
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  background-color: ${colors.purple};
-  font-family: NovaFlat_400Regular;
-`;
-
-const TaskName = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #7d68a0;
-`;
-
-const TaskDescription = styled.Text`
-  color: ${colors.purpleLight};
-  font-size: 16px;
-  margin-bottom: 5px;
-`;
-
-const AttachmentText = styled.Text`
-  font-size: 14px;
-  color: #aaa;
-  
-`;
-
-const DeleteButton = styled.TouchableOpacity`
-  background-color: #ac1212;
-  padding: 15px 10px;
-  border-radius: 5px;
-  height: 50px;
-  width: 70px;
-  justify-content: center;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  align-items: center;
-  align-self: flex-end;
-`;
-
-const DeleteButtonText = styled.Text`
-  color: #da5c5c;
-  font-weight: bold;
-`;
-
-interface Task {
+interface Tarefa {
   id: string;
   name: string;
   description: string;
@@ -61,30 +14,30 @@ interface Task {
 }
 
 const MinhasTarefas: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tarefas, setTarefas] = useState<Tarefa[]>([]);
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    const getTasks = async () => {
+    const getTarefas = async () => {
       try {
-        const existingTasks = await AsyncStorage.getItem("@tasks");
-        const parsedTasks = existingTasks ? JSON.parse(existingTasks) : [];
-        setTasks(parsedTasks);
+        const existingTarefas = await AsyncStorage.getItem("@tarefas");
+        const parsedTarefas = existingTarefas ? JSON.parse(existingTarefas) : [];
+        setTarefas(parsedTarefas);
       } catch (error) {
         Alert.alert("Erro", "Erro ao buscar tarefas");
       }
     };
 
-    getTasks();
+    getTarefas();
   }, [isFocused]);
 
-  const deleteTask = async (id: string) => {
+  const deleteTarefa = async (id: string) => {
     try {
-      const existingTasks = await AsyncStorage.getItem("@tasks");
-      const parsedTasks = existingTasks ? JSON.parse(existingTasks) : [];
-      const updatedTasks = parsedTasks.filter((task: Task) => task.id !== id);
-      await AsyncStorage.setItem("@tasks", JSON.stringify(updatedTasks));
-      setTasks(updatedTasks);
+      const existingTarefas = await AsyncStorage.getItem("@tarefas");
+      const parsedTarefas = existingTarefas ? JSON.parse(existingTarefas) : [];
+      const updatedTarefas = parsedTarefas.filter((tarefa: Tarefa) => tarefa.id !== id);
+      await AsyncStorage.setItem("@tarefas", JSON.stringify(updatedTarefas));
+      setTarefas(updatedTarefas);
       Alert.alert("Sucesso", "Tarefa excluída com sucesso");
     } catch (error) {
       Alert.alert("Erro", "Erro ao excluir tarefa");
@@ -94,20 +47,20 @@ const MinhasTarefas: React.FC = () => {
   return (
     <Container>
       <FlatList
-        data={tasks}
+        data={tarefas}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TaskCard>
-            <TaskName>Nome da tarefa: {item.name}</TaskName>
-            <TaskDescription>Descrição: {item.description}</TaskDescription>
+          <TarefaCard>
+            <TarefaName>Nome da tarefa: {item.name}</TarefaName>
+            <TarefaDescription>Descrição: {item.description}</TarefaDescription>
             {item.attachment !== "" && (
               <AttachmentText>{item.attachment}</AttachmentText>
             )}
-            <DeleteButton onPress={() => deleteTask(item.id)}>
-              <MaterialIcons name="delete-forever" size={25} color="#da5c5c" />
+            <DeleteButton onPress={() => deleteTarefa(item.id)}>
+              <MaterialIcons name="delete-forever" size={25} color="#6e1a20" />
               <DeleteButtonText>Excluir</DeleteButtonText>
             </DeleteButton>
-          </TaskCard>
+          </TarefaCard>
         )}
       />
     </Container>
